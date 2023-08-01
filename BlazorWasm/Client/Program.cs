@@ -1,5 +1,4 @@
 using BlazorWasm.Client;
-using BlazorWasm.Client.Pages;
 using Flurl.Http.Configuration;
 using Flurl.Http;
 using Microsoft.AspNetCore.Components.Web;
