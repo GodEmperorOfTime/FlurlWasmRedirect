@@ -1,4 +1,5 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@inject IEnumerable<IWeatherForecastClient> clients
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">BlazorWasm</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -19,16 +20,15 @@
                 <span class="oi oi-plus" aria-hidden="true"></span> Counter
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata/httpclient">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> HttpClient Redirect
+        @foreach (var client in clients)
+        {
+          var href = $"fetchdata/{client.Name}";
+          <div class="nav-item px-3">
+            <NavLink class="nav-link" href="@href">
+              <span class="oi oi-list-rich" aria-hidden="true"></span> @client.Name Redirect
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata/flurlclient">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> FlurlClient Redirect
-            </NavLink>
-        </div>
+          </div>
+        }
     </nav>
 </div>
 
