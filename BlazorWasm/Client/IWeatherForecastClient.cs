@@ -53,3 +53,27 @@ class FlurlWeatherForecastClient : IWeatherForecastClient
   }
 
 }
+
+class FlurlOverHttpWeatherForecastClient : IWeatherForecastClient
+{
+
+  readonly IFlurlClient flurlClient;
+
+  public string Name => "FlurlOverHttpClient";
+
+  public FlurlOverHttpWeatherForecastClient(HttpClient httpClient)
+  {
+    if (httpClient is null)    
+      throw new ArgumentNullException(nameof(httpClient));
+    this.flurlClient = new FlurlClient(httpClient);
+  }
+
+  public async Task<WeatherForecast[]> GetForecastsAsync()
+  {
+    var response = await flurlClient.Request("WeatherForecast").GetAsync();
+    Console.WriteLine($"{response.StatusCode}: {response.ResponseMessage}");
+    return await response.GetJsonAsync<WeatherForecast[]>()
+      ?? Array.Empty<WeatherForecast>();
+  }
+
+}

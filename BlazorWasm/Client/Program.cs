@@ -19,5 +19,6 @@ builder.Services.AddScoped(sp =>
 });
 builder.Services.AddScoped<IWeatherForecastClient, HttpWeatherForecastClient>();
 builder.Services.AddScoped<IWeatherForecastClient, FlurlWeatherForecastClient>();
+builder.Services.AddScoped<IWeatherForecastClient, FlurlOverHttpWeatherForecastClient>();
 
 await builder.Build().RunAsync();
